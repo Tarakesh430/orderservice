@@ -1,12 +1,16 @@
 package com.order.facade.impl;
 
 import com.order.facade.AbstractOrderProcessorFacade;
+import com.order.handlers.GetSecurityKeysHandler;
 import com.order.request.OrderContext;
+import org.springframework.stereotype.Component;
 
+@Component
 public class OrderProcessor extends AbstractOrderProcessorFacade {
-    @Override
-    public void populateSecurityKeys(OrderContext context) {
 
+
+    public OrderProcessor(GetSecurityKeysHandler securityKeysHandler) {
+        super(securityKeysHandler);
     }
 
     @Override
@@ -26,11 +30,6 @@ public class OrderProcessor extends AbstractOrderProcessorFacade {
 
     @Override
     public void makeDesicion(OrderContext context) {
-
-    }
-
-    @Override
-    public void validateOrder(OrderContext context) {
 
     }
 }

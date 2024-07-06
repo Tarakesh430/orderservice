@@ -9,11 +9,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
 import java.text.MessageFormat;
+import java.util.Objects;
 
 @Component
 @RequiredArgsConstructor
@@ -36,7 +38,11 @@ public class GetSecurityKeysHandler {
                     .retrieve().body(new ParameterizedTypeReference<>() {
                     });
         } catch (Exception ex) {
-            logger.info("Exception in retriveing Secret Keys for walletId {} exchange {} ", walletId, exchangeName);
+            logger.info("Exception in retrieving Secret Keys for walletId {} exchange {} ", walletId, exchangeName);
+        }
+        if(Objects.isNull(response) || !response.getStatusCode().equals(HttpStatus.OK) || Objects.isNull(response.getBody())){
+            logger.info("Exception in retrieving the Security Keys");
+            return;
         }
         orderContext.setSecurityKeys(response.getBody().getData());
     }

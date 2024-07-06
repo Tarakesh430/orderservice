@@ -9,6 +9,5 @@ import org.springframework.stereotype.Service;
 public class OrderService {
     private final Logger logger= LoggerFactory.getLogger(OrderService.class);
 
-    public void processOrder()
 
 }
