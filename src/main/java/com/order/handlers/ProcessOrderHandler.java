@@ -32,7 +32,7 @@ public class ProcessOrderHandler {
     @Value("${crypto.trade.api.baseUrl}")
     private String baseUrl;
     public void process(OrderContext orderContext) throws Exception {
-        OrderEvent orderEvent = orderContext.getOrderEvent();
+        OrderEvent orderEvent = orderContext.getRequestOrderEvent();
         SecurityKeys securityKeys = orderContext.getSecurityKeys();
         OrderRequest orderRequest = createOrderRequest(orderEvent);
         OrderResponse orderResponse=null;

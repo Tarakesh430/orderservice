@@ -17,7 +17,7 @@ import java.util.Map;
 @AllArgsConstructor
 @Builder
 public class OrderContext {
-    private OrderEvent orderEvent;
+    private OrderEvent requestOrderEvent;
     private String notificationMessage;
     private SecurityKeys securityKeys;
     private Map<String,Object> data;

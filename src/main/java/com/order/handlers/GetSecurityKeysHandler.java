@@ -28,7 +28,7 @@ public class GetSecurityKeysHandler {
     private String baseUrl;
 
     public void process(OrderContext orderContext) {
-        OrderEvent orderEvent = orderContext.getOrderEvent();
+        OrderEvent orderEvent = orderContext.getRequestOrderEvent();
         String exchangeName = orderEvent.getExchangeName();
         String walletId = orderEvent.getWalletId();
         logger.info("Get Secret Keys for walletId {} Exchange Name {} ", walletId, exchangeName);

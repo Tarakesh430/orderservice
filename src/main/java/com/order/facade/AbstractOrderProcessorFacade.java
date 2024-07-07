@@ -23,7 +23,7 @@ public abstract class AbstractOrderProcessorFacade implements OrderFacade {
     @Override
     public void validateOrder(OrderContext context) throws Exception {
         logger.info("validate Order Event ");
-        OrderEvent orderEvent = Optional.ofNullable(context.getOrderEvent())
+        OrderEvent orderEvent = Optional.ofNullable(context.getRequestOrderEvent())
                 .orElseThrow(() -> new Exception("Order Event should not be null"));
         validateField(orderEvent.getExchangeName(), "Exchange Name");
         validateField(orderEvent.getOrderId(), "Order ID");
