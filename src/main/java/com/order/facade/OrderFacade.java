@@ -9,17 +9,13 @@ public interface OrderFacade {
         populateSecurityKeys(context);
         processOrder(context);
         updateOrderStatus(context);
-        publishNextOrder(context);
     }
 
     void populateSecurityKeys(OrderContext context) throws Exception;
 
-
-    void publishNextOrder(OrderContext context);
-
     void updateOrderStatus(OrderContext context);
 
-    void processOrder(OrderContext context);
+    void processOrder(OrderContext context) throws Exception;
 
     void makeDesicion(OrderContext context);
 

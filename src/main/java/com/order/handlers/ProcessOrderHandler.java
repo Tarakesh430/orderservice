@@ -41,7 +41,7 @@ public class ProcessOrderHandler {
                     .header(CommonConstants.X_API_KEY, securityKeys.getApiKey())
                     .header(CommonConstants.X_SECRET_KEY, securityKeys.getSecretKey())
                     .body(orderRequest)
-                    .retrieve().body(new ParameterizedTypeReference<OrderResponse>() {
+                    .retrieve().body(new ParameterizedTypeReference<>() {
                     });
         } catch (Exception ex) {
             logger.info("Error in executing a order");

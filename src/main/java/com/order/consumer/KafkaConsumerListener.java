@@ -16,7 +16,7 @@ public class KafkaConsumerListener {
         if(message instanceof OrderEvent){
             logger.info("Received a ");
             OrderEvent orderEvent = (OrderEvent) message;
-           // OrderContext orderContext = OrderContext.builder().orderEvent(orderEvent).build();
+            OrderContext orderContext = OrderContext.builder().requestOrderEvent(orderEvent).build();
         }
     }
 }
