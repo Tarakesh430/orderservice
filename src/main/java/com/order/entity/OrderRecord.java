@@ -1,5 +1,6 @@
 package com.order.entity;
 
+import com.order.enums.OrderRecordStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +17,9 @@ public class OrderRecord {
     private String orderRecordUUid;
     private String walletOrderId;
     private String cryptoOrderId;
-    private String status;
+    @Column(name = "order_record_status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private OrderRecordStatus status;
     private long createTime;
     private long updatedTime;
 }

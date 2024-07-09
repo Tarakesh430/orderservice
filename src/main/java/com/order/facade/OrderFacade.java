@@ -13,11 +13,11 @@ public interface OrderFacade {
 
     void populateSecurityKeys(OrderContext context) throws Exception;
 
-    void updateOrderStatus(OrderContext context);
+    void updateOrderStatus(OrderContext context) throws Exception;
 
     void processOrder(OrderContext context) throws Exception;
 
-    void makeDesicion(OrderContext context);
+    void makeDesicion(OrderContext context) throws Exception;
 
     void validateOrder(OrderContext context) throws Exception;
 }
