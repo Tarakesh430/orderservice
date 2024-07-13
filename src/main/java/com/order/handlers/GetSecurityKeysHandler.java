@@ -1,9 +1,7 @@
 package com.order.handlers;
 
 import com.common.library.dto.SecurityKeys;
-import com.common.library.events.OrderEvent;
 import com.common.library.response.ApiResponse;
-import com.order.request.OrderContext;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,10 +25,7 @@ public class GetSecurityKeysHandler {
     @Value("${wallet.api.baseUrl}")
     private String baseUrl;
 
-    public void process(OrderContext orderContext) {
-        OrderEvent orderEvent = orderContext.getRequestOrderEvent();
-        String exchangeName = orderEvent.getExchangeName();
-        String walletId = orderEvent.getWalletId();
+    public SecurityKeys process(String exchangeName, String walletId) throws Exception {
         logger.info("Get Secret Keys for walletId {} Exchange Name {} ", walletId, exchangeName);
         ResponseEntity<ApiResponse<SecurityKeys>> response = null;
         try {
@@ -41,10 +36,10 @@ public class GetSecurityKeysHandler {
             logger.info("Exception in retrieving Secret Keys for walletId {} exchange {} ", walletId, exchangeName);
         }
         if(Objects.isNull(response) || !response.getStatusCode().equals(HttpStatus.OK) || Objects.isNull(response.getBody())){
-            logger.info("Exception in retrieving the Security Keys");
-            return;
+            logger.info("Exception in getting the Security Keys to the given exchangeName {} walletId {}",exchangeName,walletId);
+            throw new Exception("Exception in getting the Security Keys to the given exchangeName and walletId");
         }
-        orderContext.setSecurityKeys(response.getBody().getData());
+        return response.getBody().getData();
     }
 
     public String getTargetUrl(String walletId, String exchangeName) {

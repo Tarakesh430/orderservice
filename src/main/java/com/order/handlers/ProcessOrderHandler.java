@@ -64,7 +64,7 @@ public class ProcessOrderHandler {
         return orderRequest;
     }
     public String getTargetUrl() {
-        return TARGET_URL;
+        return baseUrl.concat(TARGET_URL);
     }
 
 

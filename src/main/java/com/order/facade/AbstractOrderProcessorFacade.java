@@ -21,36 +21,12 @@ public abstract class AbstractOrderProcessorFacade implements OrderFacade {
     private final GetSecurityKeysHandler securityKeysHandler;
 
     @Override
-    public void validateOrder(OrderContext context) throws Exception {
-        logger.info("validate Order Event ");
-        OrderEvent orderEvent = Optional.ofNullable(context.getRequestOrderEvent())
-                .orElseThrow(() -> new Exception("Order Event should not be null"));
-        validateField(orderEvent.getExchangeName(), "Exchange Name");
-        validateField(orderEvent.getOrderId(), "Order ID");
-        validateField(orderEvent.getWalletId(), "Wallet ID");
-        validateField(orderEvent.getTradeType(), "Trade Type");
-        validateField(orderEvent.getStockName(), "Stock Name");
-        validateFieldNonNegative(orderEvent.getPrice(), "Price");
-        validateFieldNonNegative(orderEvent.getQuantity(), "Quantity");
-
-    }
-
-    private void validateField(String field, String fieldName) throws Exception {
-        if (StringUtils.isBlank(field)) {
-            throw new Exception(fieldName + " should not be null");
-        }
-    }
-
-    private void validateFieldNonNegative(double field, String fieldName) throws Exception {
-        if (field <= 0) {
-            throw new Exception(fieldName + " should not be negative");
-        }
-    }
-
-    @Override
     public void populateSecurityKeys(OrderContext context) throws Exception {
         logger.info("Populate Security Keys");
-        securityKeysHandler.process(context);
+        OrderEvent requestOrderEvent = context.getRequestOrderEvent();
+        String walletId = requestOrderEvent.getWalletId();
+        String exchangeName = requestOrderEvent.getExchangeName();
+        securityKeysHandler.process(exchangeName,walletId);
         SecurityKeys securityKeys = context.getSecurityKeys();
         if(Objects.isNull(securityKeys) || StringUtils.isBlank(securityKeys.getApiKey()) ||
                 StringUtils.isBlank(securityKeys.getSecretKey())){
